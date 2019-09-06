@@ -60,9 +60,19 @@ pm2 save
 
 For more information, refer to [pm2 section](https://www.rplumber.io/docs/hosting.html#pm2) in [Plumber's docs](https://www.rplumber.io/docs/).
 
+**Note**: The instance's routable IP is hardcoded in [run.R](run.R). It would need to be changed in case of a new instance. In the future we may want to add an nginx config that reverse proxies from the routable ip to the local service and change the host in run.R back to the default of 127.0.0.1
+
 #### Maintainance
 
 ```
 cd /usr/local/plumber/test
 pm2 restart run.R
 ```
+
+To schedule `crontab`:
+
+```
+*/15 * * * * cd /usr/local/plumber/test && git pull
+```
+
+**Note**: may want to consider Puppetizing this so we could use the `notify` metaparameter with a `git` resource to automatically trigger `pm2` to restart if the repository was updated. For now we need to do this manually.
