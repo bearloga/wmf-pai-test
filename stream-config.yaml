@@ -1,0 +1,17 @@
+/^eventgate\.error\..+/:
+  schema_title: error
+
+mediawiki.revision-create:
+  schema_title: mediawiki/revision/create
+
+product-analytics.edit:
+  schema_title: product-analytics/edit
+  scope: session
+  sample_rate: 0.06
+  url: /log
+
+product-analytics.edit.firstday:
+  schema_title: product-analytics/edit
+  scope: session
+  sample_rate: 1.0
+  url: /log
