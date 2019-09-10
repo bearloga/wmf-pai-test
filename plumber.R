@@ -1,6 +1,8 @@
 library(plumber)
-
 library(glue)
+library(magrittr)
+library(knitr)
+library(kableExtra)
 
 log_filename <- "/usr/local/plumber/test/requests.log"
 
@@ -34,8 +36,15 @@ function(req) {
 #* @html
 function() {
   if (file.exists(log_filename)) {
-    reqs <- read.delim(log_filename, header = FALSE, col.names = c("timestamp", "user_agent", "post_body"))
-    table <- knitr::kable(reqs, 'html')
+    reqs <- log_filename %>%
+      readr::read_tsv(col_names = c("timestamp", "user_agent", "post_body"), col_types = "Tcc") %>%
+      dplyr::mutate(post_body = paste0("<pre>", purrr::map_chr(post_body, jsonlite::prettify, indent = 2), "</pre>")) %>%
+      dplyr::arrange(dplyr::desc(timestamp))
+    table <- reqs %>%
+      kable("html", escape = FALSE, col.names = c("Received (UTC, DESC)", "UserAgent", "POST body")) %>%
+      kable_styling(bootstrap_options = c("striped")) %>%
+      column_spec(1, width = "200px") %>%
+      column_spec(2, width = "400px")
   } else {
     table <- "<p>Request log empty</p>"
   }
@@ -55,7 +64,7 @@ function() {
 function(leave) {
   leave <- as.integer(leave)
   if (file.exists(log_filename) && leave > 0) {
-    reqs <- read.delim(log_filename, header = FALSE, col.names = c("timestamp", "user_agent", "post_body"))
+    reqs <- read.delim(log_filename, header = FALSE, col.names = c("timestamp", "user_agent", "post_body"), stringsAsFactors = FALSE)
     write.table(tail(reqs, leave), log_filename, row.names = FALSE, col.names = FALSE, sep = "\t")
   }
 }
