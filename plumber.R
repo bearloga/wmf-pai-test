@@ -45,7 +45,7 @@ function() {
       dplyr::arrange(dplyr::desc(timestamp))
     table <- reqs %>%
       kable("html", escape = FALSE, col.names = c("Received (UTC, DESC)", "UserAgent", "POST body")) %>%
-      kable_styling(bootstrap_options = c("striped"), full_width = TRUE) %>%
+      kable_styling(bootstrap_options = c("striped"), position = "left", full_width = TRUE) %>%
       column_spec(1, width = "180px") %>%
       column_spec(2, width = "380px")
   } else {
