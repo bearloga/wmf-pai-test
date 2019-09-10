@@ -6,10 +6,13 @@ library(kableExtra)
 
 log_filename <- "/usr/local/plumber/test/requests.log"
 
-style <- "<style>
-body { font-family: sans; }
-</style>"
-html <- "<!DOCTYPE html>
+style <- '<style type="text/css">
+body { padding: 15px; font-family: sans-serif; font-size: 14px; text-align: left; }
+pre { font-size: 12px; padding: 5px; }
+td { padding: 0 20px; }
+.table-striped>tbody>tr:nth-child(odd)>td { background-color: #f9f8f7; }
+</style>'
+html <- '<!DOCTYPE html>
 <html>
 <head>
 <title>Logged requests | Product Analytics Infrastructure</title>
@@ -18,7 +21,7 @@ html <- "<!DOCTYPE html>
 <body>
 {table}
 </body>
-</html>"
+</html>'
 
 #* @apiTitle Test API
 
@@ -38,13 +41,13 @@ function() {
   if (file.exists(log_filename)) {
     reqs <- log_filename %>%
       readr::read_tsv(col_names = c("timestamp", "user_agent", "post_body"), col_types = "Tcc") %>%
-      dplyr::mutate(post_body = paste0("<pre>", purrr::map_chr(post_body, jsonlite::prettify, indent = 2), "</pre>")) %>%
+      dplyr::mutate(post_body = paste0("<pre>", purrr::map_chr(post_body, jsonlite::prettify), "</pre>")) %>%
       dplyr::arrange(dplyr::desc(timestamp))
     table <- reqs %>%
       kable("html", escape = FALSE, col.names = c("Received (UTC, DESC)", "UserAgent", "POST body")) %>%
-      kable_styling(bootstrap_options = c("striped")) %>%
-      column_spec(1, width = "200px") %>%
-      column_spec(2, width = "400px")
+      kable_styling(bootstrap_options = c("striped"), full_width = TRUE) %>%
+      column_spec(1, width = "180px") %>%
+      column_spec(2, width = "380px")
   } else {
     table <- "<p>Request log empty</p>"
   }
