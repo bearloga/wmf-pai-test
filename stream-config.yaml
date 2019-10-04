@@ -1,17 +1,19 @@
-/^eventgate\.error\..+/:
-  schema_title: error
+click:
+  schema_title: product-analytics/click
+  scope: session
+  sample_rate: 0.01
+  active: yes
+  url: https://pai-test.wmflabs.org/log
 
-mediawiki.revision-create:
-  schema_title: mediawiki/revision/create
-
-product-analytics.edit:
+edit:
   schema_title: product-analytics/edit
   scope: session
-  sample_rate: 0.06
-  url: /log
+  sample_rate: 0.5
+  active: yes
+  url: https://pai-test.wmflabs.org/log
 
-product-analytics.edit.firstday:
+edit.firstday:
   schema_title: product-analytics/edit
   scope: session
   sample_rate: 1.0
-  url: /log
+  url: https://pai-test.wmflabs.org/log
