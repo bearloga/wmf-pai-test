@@ -31,3 +31,24 @@ session_length:
   active: yes
   sample_rate: 0.1
   url: https://pai-test.wmflabs.org/log
+
+app_awareness_campaign.Aug2019:
+  schema_title: banner
+  scope: pageview
+  active: no
+  sample_rate: 0.001
+  url: https://pai-test.wmflabs.org/log
+
+app_awareness_campaign.Oct2019:
+  schema_title: banner
+  scope: pageview
+  active: yes
+  sample_rate: 0.001
+  url: https://pai-test.wmflabs.org/log
+
+app_awareness_campaign.Dec2019:
+  schema_title: banner
+  scope: pageview
+  active: no
+  sample_rate: 0.001
+  url: https://pai-test.wmflabs.org/log
