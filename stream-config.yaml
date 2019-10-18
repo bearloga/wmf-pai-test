@@ -1,19 +1,33 @@
 click:
-  schema_title: product-analytics/click
+  schema_title: product/readers/click
   scope: session
   sample_rate: 0.01
   active: yes
   url: https://pai-test.wmflabs.org/log
 
 edit:
-  schema_title: product-analytics/edit
+  schema_title: product/contributors/edit-attempt-step
   scope: session
   sample_rate: 0.5
   active: yes
   url: https://pai-test.wmflabs.org/log
 
 edit.firstday:
-  schema_title: product-analytics/edit
+  schema_title: product/contributors/edit-attempt-step
   scope: session
   sample_rate: 1.0
+  url: https://pai-test.wmflabs.org/log
+
+unique_devices.mobile_apps:
+  schema_title: unique-devices
+  active: yes
+  nonidentifiable: yes
+  sample_rate: 1.0
+  url: https://pai-test.wmflabs.org/log
+
+session_length:
+  schema_title: session-length
+  scope: session
+  active: yes
+  sample_rate: 0.1
   url: https://pai-test.wmflabs.org/log
