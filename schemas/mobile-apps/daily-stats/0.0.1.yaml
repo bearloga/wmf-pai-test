@@ -1,0 +1,94 @@
+title: mobile-apps/daily-stats
+description: 'Replacement for Schema:MobileWikiAppDailyStats'
+$id: '/mobile-apps/daily-stats/0.0.1'
+$schema: 'https://json-schema.org/draft-07/schema#'
+type: object
+allOf:
+  - $ref: /common/1.0.0/#properties
+  - properties:
+      days_installed:
+        type: integer
+        description: How many days the user has had the app installed
+      logged_in:
+        type: boolean
+        description: Whether the user is logged in (at the time of this event)
+      language:
+        type: array
+        description: "User's languages as language codes such as 'en' and 'ru'"
+        items:
+          type: string
+      appearance:
+        type: object
+        description: User's appearance settings (at the time of this event)
+        additionalProperties: false
+        properties:
+          theme:
+            type: string
+            description: light, sepia, dark, black
+          dimmed:
+            type: boolean
+            description: Whether the user has turned on image dimming
+          font_size:
+            type: string
+            description: '..., -2, -1, 0, +1, +2, ...'
+      reading_list:
+        type: object
+        description: User's reading list settings and statistics
+        additionalProperties: false
+        properties:
+          sync:
+            type: boolean
+            description: Whether the user has syncing enabled
+          lists:
+            type: integer
+            description: Number of reading lists the user has
+          articles:
+            type: integer
+            description: Total number of articles the user has saved
+      notification:
+        type: object
+        description: User's notifications settings
+        additionalProperties: false
+        properties:
+          enabled:
+            type: array
+            description: Which notification types are enabled (e.g. milestone, revert)
+            items:
+              item: string
+      feed:
+        type: object
+        description: User's Explore Feed settings
+        additionalProperties: false
+        properties:
+          enabled:
+            type: array
+            description: Which cards the user has enabled and in which languages
+            items:
+              type: object
+              additionalProperties: false
+              properties:
+                card:
+                  type: string
+                  description: 'Name of the card (e.g. "In the news", "On this day")'
+                languages:
+                  type: array
+                  items:
+                    type: string
+      suggested_edits:
+        type: object
+        description: Information about Suggested Edits feature
+        additionalProperties: false
+        properties:
+          unlocked:
+            type: boolean
+            description: Whether the user has unlocked the feature at the time of this event
+          tasks:
+            type: array
+            description: Which tasks the user has unlocked (e.g. description-add, caption-add)
+            items:
+              type: string
+required:
+  - device_id
+  - days_installed
+  - logged_in
+  - language

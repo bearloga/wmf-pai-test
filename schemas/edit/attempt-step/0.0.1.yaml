@@ -1,0 +1,96 @@
+title: edit/attempt-step
+description: 'Replacement for Schema:EditAttemptStep'
+$id: '/edit/attempt-step/0.0.1'
+$schema: 'https://json-schema.org/draft-07/schema#'
+type: object
+allOf:
+  - $ref: /common/1.0.0/#properties
+  - properties:
+      action:
+        type: string
+        description: >
+          The actions involved in an attempt to edit a page, such as:
+          - 'init': Initiation of the editor
+          - 'ready': Editor is ready for user input (cursor blinking)
+          - 'loaded': Editor has fully loaded
+          - 'first change': user has done something to edit the content, hopefully signaling intent-to-edit
+          - 'save intent': Editor pre-save button (if available) has been activated, showing user intent to save (regardless of whether they continue)
+          - 'save attempt': Editor save button has been activated, showing user attempt to save (regardless of success)
+          - 'save success': Editor has successfully saved and user has been shown a post-edit status on the client-side
+          - 'save failure': Editor has not successfully saved and user has been shown a save failure reason on the client-side
+          - 'abort': Editor has been aborted by user action
+      page:
+        type: object
+        description: Information about the page the user is attempting to edit
+        additionalProperties: false
+        properties:
+          id:
+            type: integer
+            description: MediaWiki page ID
+          ns:
+            type: integer
+            description: Page namespace (e.g. 0 if Main)
+          new:
+            type: boolean
+            description: Whether the page being edited is a new page that the user is creating
+      user:
+        type: object
+        description: Information about the user attempting to edit the page
+        additionalProperties: false
+        properties:
+          id:
+            type: integer
+            description: MediaWiki user ID (0 if anonymous)
+          bot:
+            type: boolean
+            description: Whether the user is a known bot
+          platform:
+            type: string
+            description: The editing device through which the user is attempting to edit the page
+          test_group:
+            type: string
+            description: Which A/B test group the user is enrolled in, if any
+          edit_count:
+            type: integer
+            description: Total number of edits made by user as of this time
+          token:
+            type: string
+            description: A random, cookie-stored token used to temporarily distinguish individual anonymous editors
+      editor:
+        type: object
+        description: Information about the editor the user is using to edit the page
+        additionalProperties: false
+          properties:
+            name:
+              type: string
+              description: e.g. VisualEditor or wikitext
+            version:
+              type: string
+              description: Version of the editor (e.g. which version of VisualEditor the user was using)
+            init:
+              type: string
+              description: >
+                Type information about action=init:
+                - 'page': Editing has been initiated for the whole page
+                - 'section': Editing has been initiated for a section of the page
+      revision:
+        type: object
+        description: Information about the revision the user made
+        additionalProperties: false
+        properties:
+          id:
+            type: integer
+            description: MediaWiki rev ID
+          minor:
+            type: boolean
+            description: Whether the revision was a minor edit
+          change_tags:
+            type: array
+            description: Change tags included with the edit
+            items:
+              type: string
+required:
+  - action
+  - page
+  - user
+  - editor

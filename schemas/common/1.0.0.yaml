@@ -1,0 +1,57 @@
+title: common
+description: Common schema fields for all Event Platform Client and WMF Product Analytics schemas
+$id: /common/1.0.0
+$schema: 'https://json-schema.org/draft-07/schema#'
+type: object
+properties:
+  $schema:
+    type: string
+    description: >
+      A URI identifying the JSONSchema for this event. This should match an
+      schema's $id in a schema repository, e.g. /common/1.0.0
+  meta:
+    type: object
+    required:
+      - dt
+      - stream
+    properties:
+      dt:
+        type: string
+        format: date-time
+        maxLength: 128
+        description: 'Event datetime, in ISO-8601 format'
+      stream:
+        type: string
+        description: Name of the stream/queue/dataset that this event belongs in
+        minLength: 1
+      id:
+        type: string
+        pattern: '^[a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12}$'
+        maxLength: 36
+        description: Optional UUIDv4 of this event, generated client-side
+      device_id:
+        type: string
+        minLength: 1
+        maxLength: 128
+        description: Randomly generated device identifier, for platforms which support it
+      session_id:
+        type: string
+        minLength: 20
+        maxLength: 20
+        description: Uniformly random 80-bit identifier conforming to EPC-ID specification, for sessions
+      pageview_id:
+        type: string
+        minLength: 20
+        maxLength: 20
+        description: Uniformly random 80-bit identifier conforming to EPC-ID specification, for pageviews
+      activity_id:
+        type: string
+        minLength: 24
+        maxLength: 24
+        description: >
+          Concatenation of session or pageview ID (depending on stream scope) and a 16-bit sequence number,
+          for linking events within the same activity. The exact order in which events were generated within
+          the same activity can be determined using dt (the client-side timestamp).
+required:
+  - $schema
+  - meta
