@@ -1,6 +1,6 @@
 title: edit/attempt-step
 description: 'Replacement for Schema:EditAttemptStep'
-$id: '/edit/attempt-step/0.0.1'
+$id: '/edit/attempt-step/0.0.2'
 $schema: 'https://json-schema.org/draft-07/schema#'
 type: object
 allOf:
@@ -8,6 +8,16 @@ allOf:
   - properties:
       action:
         type: string
+        enum:
+          - "init"
+          - "ready"
+          - "loaded"
+          - "first change"
+          - "save intent"
+          - "save attempt"
+          - "save success"
+          - "save failure"
+          - "abort"
         description: >
           The actions involved in an attempt to edit a page, such as:
           - 'init': Initiation of the editor
