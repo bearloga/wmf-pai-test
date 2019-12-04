@@ -3,6 +3,7 @@ library(glue)
 library(magrittr)
 library(knitr)
 library(kableExtra)
+library(htmltools)
 
 log_filename <- "/usr/local/plumber/test/requests.log"
 
@@ -41,7 +42,7 @@ function() {
   if (file.exists(log_filename)) {
     reqs <- log_filename %>%
       readr::read_tsv(col_names = c("timestamp", "user_agent", "post_body"), col_types = "Tcc") %>%
-      dplyr::mutate(post_body = paste0("<pre>", purrr::map_chr(post_body, jsonlite::prettify), "</pre>")) %>%
+      dplyr::mutate(post_body = paste0("<pre>", htmlEscape(purrr::map_chr(post_body, jsonlite::prettify)), "</pre>")) %>%
       dplyr::arrange(dplyr::desc(timestamp))
     table <- reqs %>%
       kable("html", escape = FALSE, col.names = c("Received (UTC, DESC)", "UserAgent", "POST body")) %>%
