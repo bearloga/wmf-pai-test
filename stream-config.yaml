@@ -1,19 +1,16 @@
 click:
   $schema: /common/1.0.0
   destination: https://pai-test.wmflabs.org/log
-  scope: session
   sample:
     rate: 0.5
 edit:
   $schema: /edit/attempt-step/0.0.1
   destination: https://pai-test.wmflabs.org/log
-  scope: session
   sample:
     rate: 0.1
 edit.growth:
   $schema: /edit/attempt-step/0.0.1
   destination: https://pai-test.wmflabs.org/log
-  scope: session
   sample:
     rate: 1.0
 daily_app_users:
