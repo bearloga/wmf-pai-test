@@ -4,7 +4,7 @@
 
 - [Editing behavior](#Editing-behavior)
     - [Growth team experiments](#Growth-team-experiments)
-- [Reading heavior](#Reading-heavior)
+- [Reading behavior](#Reading-behavior)
     - [Web team experiments](#Web-team-experiments)
 
 ## Editing behavior
