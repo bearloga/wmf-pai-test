@@ -1,19 +1,30 @@
-click:
+defaults:
+  sampling:
+    rate: 1.0
+    identifier: session
+
+some_sessions:
   $schema: /common/1.0.0
   destination: https://pai-test.wmflabs.org/log
-  sample:
-    rate: 0.5
-edit:
-  $schema: /edit/attempt-step/0.0.1
-  destination: https://pai-test.wmflabs.org/log
-  sample:
+  sampling:
     rate: 0.1
-edit.growth:
-  $schema: /edit/attempt-step/0.0.1
+
+more_sessions:
+  $schema: /common/1.0.0
   destination: https://pai-test.wmflabs.org/log
-  sample:
-    rate: 1.0
+  sampling:
+    rate: 0.25
+
+double_sessions:
+  $schema: /common/1.0.0
+  destination: https://pai-test.wmflabs.org/log
+  sampling:
+    rate: 0.5
+
+all_sessions:
+  $schema: /common/1.0.0
+  destination: https://pai-test.wmflabs.org/log
+
 daily_app_users:
   $schema: /mobile-apps/daily-stats/0.0.1
   destination: https://pai-test.wmflabs.org/log
-  scope: device
