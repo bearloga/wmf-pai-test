@@ -24,7 +24,3 @@ double_sessions:
 all_sessions:
   $schema: /common/1.0.0
   destination: https://pai-test.wmflabs.org/log
-
-daily_app_users:
-  $schema: /mobile-apps/daily-stats/0.0.1
-  destination: https://pai-test.wmflabs.org/log
