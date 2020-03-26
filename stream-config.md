@@ -78,7 +78,30 @@ edit.growth.help_panel:
           - desktop
           - mobile web
         rate: 1.0
+edit.growth.help_panel.first_day:
+  $schema: /edit/attempt-step/0.0.1
+  destination: https://pai-test.wmflabs.org/log
+  sampling:
+    rate: 0.0
+    identifier: session
+    rules:
+      - wiki:
+          - cz.wikipedia.org
+          - ko.wikipedia.org
+        keys:
+          - key: growth_experiment
+            value:
+            - variant_1
+            - variant_2
+          - key: first_day
+            value: true
+        platform:
+          - desktop
+          - mobile web
+        rate: 1.0
 ```
+
+The `edits.growth.help_panel.first_day` stream is only activated when *both* keys are present *and* when each key has a valid value. Unlike the `edits.growth.help_panel` stream, which activates when `growth_experiment` is one of the three possible values, the `...first_day` stream is not activated for sessions where `growth_experiment = 'baseline'` and requires an additional `first_day` key.
 
 **NOTE**: EPC does not know where the `key` is stored. Growth team uses the [user properties table](https://www.mediawiki.org/wiki/Manual:User_properties_table) in MediaWiki. On the web, we might want to make EPC have access to values persisted with `mw.cookie.set` and leave it up to Growth's engineers to write their instrumentation so that it pulls the relevant marker out of user properties and stores it in a session cookie for EPC to check against.
 
@@ -87,7 +110,7 @@ edit.growth.help_panel:
 Suppose we deploy `reading_depth` instrumentation across all wikis, but want different sampling rates for certain wikis:
 
 ```yaml
-reading_depth
+reading_depth:
   $schema: /web/reading-depth/0.0.1
   destination: https://pai-test.wmflabs.org/log
   sampling:
