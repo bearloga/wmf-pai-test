@@ -118,7 +118,7 @@ reading_depth:
     rules:
       - wiki:
           - *.wikipedia.org
-        rule: 0.25
+        rate: 0.25
       - wiki:
           - en.wikipedia.org
         rate: 0.01
