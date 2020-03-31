@@ -41,3 +41,12 @@ sessions.enwiki:
       - wiki:
           - en.wikipedia.org
         rate: 1.0
+sessions.apps:
+  $schema: /common/1.0.0
+  destination: https://pai-test.wmflabs.org/log
+  sampling:
+    rate: 0.0
+    rules:
+      - platform:
+          - ios
+        rate: 1.0
