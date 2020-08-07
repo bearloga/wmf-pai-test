@@ -77,7 +77,7 @@ function(leave) {
 #* @get /streams
 #* @serializer unboxedJSON
 function() {
-  if (file.exists("stream-config.yaml")) {
-    return(yaml::read_yaml("stream-config.yaml"))
+  if (file.exists("stream-config.json")) {
+    return(jsonlite::read_json("stream-config.json"))
   }
 }
