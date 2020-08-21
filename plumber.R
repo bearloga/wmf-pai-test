@@ -42,8 +42,14 @@ function() {
   if (file.exists(log_filename)) {
     reqs <- log_filename %>%
       readr::read_tsv(col_names = c("timestamp", "user_agent", "post_body"), col_types = "Tcc") %>%
-      dplyr::mutate(post_body = paste0("<pre>", htmlEscape(purrr::map_chr(post_body, jsonlite::prettify)), "</pre>")) %>%
-      dplyr::arrange(dplyr::desc(timestamp))
+      dplyr::mutate(
+        deserialized_json = purrr::map(post_body, jsonlite::fromJSON, simplifyVector = FALSE),
+        deserialized_json = purrr::map(deserialized_json, ~ .x[sort(names(.x))]),
+        client_dt = purrr::map_chr(deserialized_json, ~ .x[["client_dt"]]),
+        post_body = paste0("<pre>", htmlEscape(purrr::map_chr(deserialized_json, jsonlite::toJSON, pretty = TRUE, auto_unbox = TRUE)), "</pre>")
+      ) %>%
+      dplyr::arrange(dplyr::desc(timestamp), dplyr::desc(client_dt)) %>%
+      dplyr::select(-c(deserialized_json, client_dt))
     table <- reqs %>%
       kable("html", escape = FALSE, col.names = c("Received (UTC, DESC)", "UserAgent", "POST body")) %>%
       kable_styling(bootstrap_options = c("striped"), position = "left", full_width = TRUE) %>%
