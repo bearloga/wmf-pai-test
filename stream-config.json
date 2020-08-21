@@ -9,36 +9,11 @@
     "eventlogging_Test": {
       "destination_event_service": "eventgate-analytics-external"
     },
-    "mediawiki.client.error": {
-      "destination_event_service": "eventgate-logging-external"
-    },
-    "kaios_app.error": {
-      "destination_event_service": "eventgate-logging-external"
-    },
-    "test.event": {},
-    "eventgate-logging-external.test.event": {
-      "destination_event_service": "eventgate-logging-external"
-    },
-    "eventgate-analytics-external.test.event": {
+    "ios.test.event": {
       "destination_event_service": "eventgate-analytics-external"
     },
-    "eventgate-analytics.test.event": {
-      "destination_event_service": "eventgate-analytics"
-    },
-    "eventgate-main.test.event": {
-      "destination_event_service": "eventgate-main"
-    },
-    "eventgate-logging-external.error.validation": {
-      "destination_event_service": "eventgate-logging-external"
-    },
-    "eventgate-analytics-external.error.validation": {
+    "ios.edit_history_compare": {
       "destination_event_service": "eventgate-analytics-external"
-    },
-    "eventgate-analytics.error.validation": {
-      "destination_event_service": "eventgate-analytics"
-    },
-    "eventgate-main.error.validation": {
-      "destination_event_service": "eventgate-main"
     }
   }
 }
