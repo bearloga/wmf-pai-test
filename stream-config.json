@@ -1,19 +1,15 @@
 {
   "streams": {
-    "eventlogging_SearchSatisfaction": {
-      "destination_event_service": "eventgate-analytics-external"
-    },
-    "eventlogging_TemplateWizard": {
-      "destination_event_service": "eventgate-analytics-external"
-    },
-    "eventlogging_Test": {
-      "destination_event_service": "eventgate-analytics-external"
-    },
-    "ios.test.event": {
-      "destination_event_service": "eventgate-analytics-external"
-    },
-    "ios.edit_history_compare": {
-      "destination_event_service": "eventgate-analytics-external"
+    "eventlogging_SearchSatisfaction": {},
+    "eventlogging_TemplateWizard": {},
+    "eventlogging_Test": {},
+    "ios.test.event": {},
+    "ios.edit_history_compare": {},
+    "test.instrumentation": {},
+    "test.instrumentation.sampled": {
+      "sampling": {
+        "rate": 0.5
+      }
     }
   }
 }
