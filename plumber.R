@@ -27,7 +27,7 @@ html <- '<!DOCTYPE html>
 #* @apiTitle Test API
 
 #* Log the request to a file
-#* @post /log
+#* @post /events
 function(req) {
   # write(paste0(Sys.time(), ": ", req), "~/Desktop/test/requests.log", append = TRUE)
   sink(file = log_filename, append = TRUE)

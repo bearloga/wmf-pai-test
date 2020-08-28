@@ -4,7 +4,7 @@ This repository contains code and instructions for setting up a web API for test
 
 It makes the following endpoints available at `BASE_URL="https://pai-test.wmflabs.org/"`:
 
-- `/log`: records `POST` body in a log file
+- `/events`: records `POST` body in a log file
 - `/view`: displays logged requests as a table in a web page
 - `/clear`: empties the requests log
 - `/retain/n`: clears the log except the most recent `n` requests
@@ -13,7 +13,7 @@ It makes the following endpoints available at `BASE_URL="https://pai-test.wmflab
 For example, to log an event from the browser:
 
 ```JS
-var url = BASE_URL + "/log",
+var url = BASE_URL + "/events",
     event = {
       action: "start",
     };
@@ -76,3 +76,7 @@ To schedule `crontab`:
 ```
 
 **Note**: may want to consider Puppetizing this so we could use the `notify` metaparameter with a `git` resource to automatically trigger `pm2` to restart if the repository was updated. For now we need to do this manually.
+
+## CloudVPS
+
+[Help:MediaWiki-Vagrant in Cloud VPS](https://wikitech.wikimedia.org/wiki/Help:MediaWiki-Vagrant_in_Cloud_VPS)
